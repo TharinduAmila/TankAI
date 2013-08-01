@@ -67,7 +67,7 @@ public class Astarfor2dgrid {
                 }
     }
     
-    public static void getPathHeuristics(int[] start,int[] goal){
+    public static void getPathHeuristics(int[] start,int[] goal,int obj[]){
         //System.out.println("Score goal :"+score[goal[0]][goal[1]][0]+"  "+score[goal[0]][goal[1]][1]);
         if(finiteStateMachine.value==null){
             finiteStateMachine.value = new int[10][10];
@@ -81,7 +81,7 @@ public class Astarfor2dgrid {
         //System.out.println("start :"+start[0]+"  "+start[1]);
         int currentX = goal[0], currentY = goal[1],weight = score[goal[0]][goal[1]][0];
         while(true){
-            if(currentX==start[0] && currentY==start[1]){
+            if(currentX==start[0] && currentY==start[1] || weight>obj[2]/1000){
                 break;
             }else{
                 //System.out.print("("+currentX+","+currentY+")");

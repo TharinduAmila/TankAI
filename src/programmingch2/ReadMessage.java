@@ -33,6 +33,7 @@ public class ReadMessage {
     }
     
     public static void main(String[] args) {
+        init(10);
         //read("S:P0;0,0;0:P1;0,9;0:P2;9,0;0:P3;9,9;0:P4;5,5;0#");
         read("I:P0:5,4;7,6:3,1;5,3;7,2;1,4;8,6;0,8;2,4;9,3:1,3;0,4;7,1;7,8;2,3;6,8;4,3;9,8;3,6;2,6#");
         //read("C:4,4:58975:1542#");
@@ -68,8 +69,8 @@ public class ReadMessage {
 //            System.out.println(i[0]);
 //        }
         ReadMessage.display();
-        if(programmingch2.Astarfor2dgrid.A(new int[]{2,1}, new int[]{8,3}, map))
-            programmingch2.Astarfor2dgrid.getPathHeuristics(new int[]{2,1}, new int[]{8,3});
+        if(programmingch2.Astarfor2dgrid.A(new int[]{5,5}, new int[]{0,0}, map))
+            //programmingch2.Astarfor2dgrid.getPathHeuristics(new int[]{5,5}, new int[]{0,0});
 //        if(programmingch2.Astarfor2dgrid.A(new int[]{2,1}, new int[]{2,1}, map))
 //            programmingch2.Astarfor2dgrid.getPathHeuristics(new int[]{2,1}, new int[]{2,1});
 //        if(programmingch2.Astarfor2dgrid.A(new int[]{2,1}, new int[]{5,5}, map))
