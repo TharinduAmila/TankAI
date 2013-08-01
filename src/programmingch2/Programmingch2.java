@@ -17,8 +17,8 @@ public class Programmingch2 {
      */
     public static void main(String[] args) throws IOException {
         
-        ReadMessage.init(20);
-        finiteStateMachine fm = new finiteStateMachine(20);
+        ReadMessage.init(10);
+        finiteStateMachine fm = new finiteStateMachine(10);
         ServerSocket server = null;
         Socket output = null;
         Socket input = null;

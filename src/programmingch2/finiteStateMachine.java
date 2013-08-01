@@ -4,8 +4,6 @@
  */
 package programmingch2;
 
-import java.util.Arrays;
-import java.util.ListIterator;
 import static programmingch2.ReadMessage.*;
 import programmingch2.Astarfor2dgrid.*;
 /**
@@ -39,8 +37,8 @@ public class finiteStateMachine {
         valueReset();
         int x = 0,y = 0,weight = Integer.MAX_VALUE;
         String Ret = "";
-        Object[] now = ReadMessage.coinPiles.toArray();
-        for(Object t : now){
+        Object[] nowCoins = ReadMessage.coinPiles.toArray();
+        for(Object t : nowCoins){
             int[] it = (int[]) t;
             for(int i = 0; i<playFace.length;i++){
                 if(it[0]==playFace[i][1]&&it[1]==playFace[i][2])
@@ -49,10 +47,31 @@ public class finiteStateMachine {
                         ReadMessage.coinPiles.remove(it);
                     break;
                 }
+                
+            }
+        }
+        Object[] nowHealth = ReadMessage.healthPacks.toArray();
+        for(Object t : nowHealth){
+            int[] it = (int[]) t;
+            for(int i = 0; i<playFace.length;i++){
+                if(it[0]==playFace[i][1]&&it[1]==playFace[i][2])
+                {
+                    if(ReadMessage.healthPacks.contains(it))
+                        ReadMessage.healthPacks.remove(it);
+                    break;
+                }
+                
             }
         }
         int playX = playFace[playernumber][1],playY = playFace[playernumber][2];
-        now = ReadMessage.coinPiles.toArray();
+        Object[] now;
+        if(playFace[playernumber][4]>50 && !ReadMessage.coinPiles.isEmpty()){
+            now = ReadMessage.coinPiles.toArray();
+        }else if(playFace[playernumber][4]<50 && !ReadMessage.healthPacks.isEmpty()){
+            now = ReadMessage.coinPiles.toArray();
+        }else{
+            now = ReadMessage.coinPiles.toArray();
+        }
         for(Object temp : now){
             int[] k = (int[])temp;
             if(Astarfor2dgrid.A(new int[]{playX,playY}, new int[]{k[0],k[1]}, map)){

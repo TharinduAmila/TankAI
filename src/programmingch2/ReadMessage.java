@@ -110,7 +110,9 @@ public class ReadMessage {
             String[] a = part.nextToken().split(",");
             //System.out.println("x :"+a[0]+" y :"+a[1]);           //map[Integer.parseInt(part2.nextToken())][Integer.parseInt(part2.nextToken())] = set;
             //System.out.println("LT :"+part.nextToken());
-            healthPacks.add(new int[]{Integer.parseInt(a[0]),Integer.parseInt(a[1]),Integer.parseInt(part.nextToken())});
+            int[] temp = new int[]{Integer.parseInt(a[0]),Integer.parseInt(a[1]),Integer.parseInt(part.nextToken())};
+            healthPacks.add(temp);
+            new RemoveListObject(healthPacks,temp,temp[2]);
         }else if(type.equals("S")){
             while(part.hasMoreTokens()){
                 part2 = new StringTokenizer(part.nextToken(), "P;,");
