@@ -79,7 +79,7 @@ public class Astarfor2dgrid {
         }
         //System.out.println("goal :"+goal[0]+"  "+goal[1]);
         //System.out.println("start :"+start[0]+"  "+start[1]);
-        int currentX = goal[0], currentY = goal[1],weight = score[goal[0]][goal[1]][0];
+        int currentX = goal[0], currentY = goal[1],weight = score[goal[0]][goal[1]][0],yhold =goal[1],xhold =goal[0];
         while(true){
             if(currentX==start[0] && currentY==start[1] || weight>obj[2]/1000){
                 break;
@@ -87,8 +87,8 @@ public class Astarfor2dgrid {
                 //System.out.print("("+currentX+","+currentY+")");
                 if(finiteStateMachine.value[currentX][currentY]>weight)
                     finiteStateMachine.value[currentX][currentY] = weight;
-                int yhold = currentY;
-                int xhold = currentX;
+                yhold = currentY;
+                xhold = currentX;
                 currentX = camefrom[xhold][yhold][0];
                 currentY = camefrom[xhold][yhold][1];
             }
@@ -122,8 +122,9 @@ public class Astarfor2dgrid {
                 //each neighbor in neighbor_nodes(current)
                 if (current[0] + 1 < size && !closed[current[0] + 1][current[1]] && map[current[0] + 1][current[1]] < 7) {
                     int tentative_g_score;
+                    //east
                     int x = current[0] + 1, y = current[1];
-                    if (current[0] - camefrom[x][y][0] > 0) {
+                    if (current[0] - camefrom[x][y][0] > 0 ||(current[0]==start[0]&&current[1]==start[1]&&ReadMessage.playFace[ReadMessage.playernumber][0]==1)) {
                         tentative_g_score = score[current[0]][current[1]][0] + 1;
                     } else {
                         tentative_g_score = score[current[0]][current[1]][0] + 2;
@@ -142,9 +143,10 @@ public class Astarfor2dgrid {
                     }
                 }
                 if (current[0] - 1 > -1 && !closed[current[0] - 1][current[1]] && map[current[0] - 1][current[1]] < 7) {
+                    //west
                     int tentative_g_score;
                     int x = current[0] - 1, y = current[1];
-                    if (current[0] - camefrom[x][y][0] < 0) {
+                    if (current[0] - camefrom[x][y][0] < 0 ||(current[0]==start[0]&&current[1]==start[1]&&ReadMessage.playFace[ReadMessage.playernumber][0]==3)) {
                         tentative_g_score = score[current[0]][current[1]][0] + 1;
                     } else {
                         tentative_g_score = score[current[0]][current[1]][0] + 2;
@@ -164,9 +166,10 @@ public class Astarfor2dgrid {
                     }
                 }
                 if (current[1] + 1 < size && !closed[current[0]][current[1] + 1] && map[current[0]][current[1] + 1] < 7) {
+                    //down
                     int tentative_g_score;
                     int x = current[0], y = current[1] + 1;
-                    if (current[1] - camefrom[x][y][1] > 0) {
+                    if (current[1] - camefrom[x][y][1] > 0 ||(current[0]==start[0]&&current[1]==start[1]&&ReadMessage.playFace[ReadMessage.playernumber][0]==2)) {
                         tentative_g_score = score[current[0]][current[1]][0] + 1;
                     } else {
                         tentative_g_score = score[current[0]][current[1]][0] + 2;
@@ -188,7 +191,7 @@ public class Astarfor2dgrid {
                 if (current[1] - 1 > -1 && !closed[current[0]][current[1] - 1] && map[current[0]][current[1] - 1] < 7) {
                     int tentative_g_score;
                     int x = current[0], y = current[1] - 1;
-                    if (current[1] - camefrom[x][y][1] < 0) {
+                    if (current[1] - camefrom[x][y][1] < 0||(current[0]==start[0]&&current[1]==start[1]&&ReadMessage.playFace[ReadMessage.playernumber][0]==0)) {
                         tentative_g_score = score[current[0]][current[1]][0] + 1;
                     } else {
                         tentative_g_score = score[current[0]][current[1]][0] + 2;
