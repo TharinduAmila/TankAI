@@ -17,7 +17,7 @@ public class Programmingch2 {
      */
     public static void main(String[] args) throws IOException {
         
-        ReadMessage.init(10);
+        //ReadMessage.init(10);
         finiteStateMachine fm = new finiteStateMachine(10);
         ServerSocket server = null;
         Socket output = null;
@@ -41,10 +41,11 @@ public class Programmingch2 {
             input = server.accept();
             in = new BufferedReader(new InputStreamReader(input.getInputStream()));
             min = in.readLine();
-            if(min.equals("GAME_FINISHED#"))
+            if(min.equals("GAME_HAS_FINISHED#"))
                 System.exit(0);
             ReadMessage.read(min);
             if(min.startsWith("G:")){
+                ReadMessage.playDisplay();
                 for (int i = 0; i < 600; i++) {
                     for (int j = 0; j < 600; j++) {
                         System.out.print("");

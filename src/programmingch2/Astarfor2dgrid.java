@@ -93,7 +93,7 @@ public class Astarfor2dgrid {
                 currentY = camefrom[xhold][yhold][1];
             }
         }
-        System.out.println("");
+        //System.out.println("");
     }
     
     public static boolean A(int[] start, int[] goal, int map[][]) {

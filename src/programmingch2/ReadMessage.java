@@ -23,6 +23,9 @@ public class ReadMessage {
     
     public static void init(int z){
         size = z;
+        for(int i=0;i<5;i++){
+            playFace[i][0] = -1;
+        }
         map = new int[size][size];
         for (int y = 0; y < size; y++) {
                 for (int x = 0; x <size; x++) {
@@ -149,7 +152,11 @@ public class ReadMessage {
             }
         } 
     }
-    
+    public static void playDisplay(){
+        for(int i=0;i<5;i++){
+            System.out.println(playFace[i][0]);
+        }
+    }
     public static void display(){
         for(int[] x: coinPiles){
             System.out.println(x[0]+" "+x[1]+": LT"+x[2]+" VAL"+x[3]);

@@ -21,7 +21,7 @@ public class finiteStateMachine {
     static int size = 0;
     public finiteStateMachine(int size) {
         finiteStateMachine.size = size;
-        Astarfor2dgrid.init(size);
+        //Astarfor2dgrid.init(size);
         ReadMessage.init(size);
         value = new int[size][size];
     }
@@ -61,6 +61,24 @@ public class finiteStateMachine {
             }
             it[2] -= 1000;
         }
+        for(int i=0;i<5;i++){
+            if(playFace[i][4]==0){
+                int[] temp = new int[]{playFace[i][1],playFace[i][2],5000};
+                ReadMessage.coinPiles.add(temp);
+                new RemoveListObject(ReadMessage.coinPiles,temp,5000);
+            }
+        }
+    }
+    private Object[] createListOfPlayers(){
+        Object[] obj = new Object[4];
+            int count = 0;
+            for(int i=0;i<5;i++){
+                if(i!=ReadMessage.playernumber && playFace[i][0]!=-1){
+                    obj[count] = (Object)new int[]{playFace[i][1],playFace[i][2],90000};
+                    count++;
+                }
+            }
+            return obj;
     }
     public String getDecision(){
         //Arrays.fill(value,Integer.MAX_VALUE);
@@ -69,18 +87,24 @@ public class finiteStateMachine {
         String Ret = "";
         clearLists();
         int playX = playFace[playernumber][1],playY = playFace[playernumber][2];
-        Object[] now;
+        Object[] now = null;
         //state Selection
         if(playFace[playernumber][4]>50 && !ReadMessage.coinPiles.isEmpty()){
             now = ReadMessage.coinPiles.toArray();
         }else if(playFace[playernumber][4]<50 && !ReadMessage.healthPacks.isEmpty()){
             now = ReadMessage.healthPacks.toArray();
         }else{
-            now = ReadMessage.coinPiles.toArray();
+            System.out.println("In Kill Zone");
+            //have to check threat level up top tooo
+            now = createListOfPlayers();
+            if(playerInRange()){
+                System.out.println("KILL!!");
+                return "SHOOT#";
+            }
         }
         for(Object temp : now){
             int[] k = (int[])temp;
-            if(Astarfor2dgrid.A(new int[]{playX,playY}, new int[]{k[0],k[1]}, map)){
+            if(temp!=null&&Astarfor2dgrid.A(new int[]{playX,playY}, new int[]{k[0],k[1]}, map)){
                 Astarfor2dgrid.getPathHeuristics(new int[]{playX,playY}, new int[]{k[0],k[1]},k);
                 //System.out.println("Run Astar");
             }
@@ -116,5 +140,31 @@ public class finiteStateMachine {
             return Ret;
         else
            return "SHOOT#";
+    }
+
+    private boolean playerInRange() {
+        for(int i=0;i<5;i++){
+                if(i!=ReadMessage.playernumber && playFace[i][0]!=-1){
+                    if(playFace[i][2]==playFace[ReadMessage.playernumber][2]){
+                        //System.out.println(playFace[i][1]+" "+playFace[ReadMessage.playernumber][1]+" "+playFace[ReadMessage.playernumber][0]);
+                        if(playFace[i][1]-playFace[ReadMessage.playernumber][1]>0 && playFace[ReadMessage.playernumber][0]==1 &&
+                                playFace[i][1]-playFace[ReadMessage.playernumber][1]<6){
+                            return true;
+                        }else if(playFace[i][1]-playFace[ReadMessage.playernumber][1]<0 && playFace[ReadMessage.playernumber][0]==3
+                                && playFace[i][1]-playFace[ReadMessage.playernumber][1]>-6){
+                            return true;
+                        }
+                    }else if(playFace[i][1]==playFace[ReadMessage.playernumber][1]){
+                        if(playFace[i][2]-playFace[ReadMessage.playernumber][2]>0 && playFace[ReadMessage.playernumber][0]==2
+                               && playFace[i][2]-playFace[ReadMessage.playernumber][2]<6){
+                            return true;
+                        }else if(playFace[i][2]-playFace[ReadMessage.playernumber][2]<0 && playFace[ReadMessage.playernumber][0]==0
+                                && playFace[i][2]-playFace[ReadMessage.playernumber][2]>-6){
+                            return true;
+                        }
+                    }
+                }
+            }
+        return false;
     }
 }
