@@ -72,7 +72,7 @@ public class ReadMessage {
 //            System.out.println(i[0]);
 //        }
         ReadMessage.display();
-        if(programmingch2.Astarfor2dgrid.A(new int[]{5,5}, new int[]{0,0}, map))
+        if(programmingch2.Astarfor2dgrid.A(new int[]{0,0}, new int[]{5,5}, map))
             //programmingch2.Astarfor2dgrid.getPathHeuristics(new int[]{5,5}, new int[]{0,0});
 //        if(programmingch2.Astarfor2dgrid.A(new int[]{2,1}, new int[]{2,1}, map))
 //            programmingch2.Astarfor2dgrid.getPathHeuristics(new int[]{2,1}, new int[]{2,1});
@@ -80,6 +80,7 @@ public class ReadMessage {
 //            programmingch2.Astarfor2dgrid.getPathHeuristics(new int[]{2,1}, new int[]{5,5});
             //System.out.println("   ");
         programmingch2.Astarfor2dgrid.showPath();
+        programmingch2.Astarfor2dgrid.showCost();
         
     }
    

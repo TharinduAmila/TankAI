@@ -67,6 +67,17 @@ public class Astarfor2dgrid {
                 }
     }
     
+    public static void showCost(){
+        for (int y = 0; y < size; y++) {
+                    for (int x = 0; x < size; x++) {
+                        if(score[x][y][0]>9)
+                        System.out.print(" "+score[x][y][0]);//+" "+camefrom[x][y][1]+"   ");
+                        else
+                        System.out.print("  "+score[x][y][0]);    
+                    }
+                    System.out.println("");
+                }
+    }
     public static void getPathHeuristics(int[] start,int[] goal,int obj[]){
         //System.out.println("Score goal :"+score[goal[0]][goal[1]][0]+"  "+score[goal[0]][goal[1]][1]);
         if(finiteStateMachine.value==null){
@@ -124,7 +135,8 @@ public class Astarfor2dgrid {
                     int tentative_g_score;
                     //east
                     int x = current[0] + 1, y = current[1];
-                    if (current[0] - camefrom[x][y][0] > 0 ||(current[0]==start[0]&&current[1]==start[1]&&ReadMessage.playFace[ReadMessage.playernumber][0]==1)) {
+                    if (current[0] - camefrom[current[0]][current[1]][0] > 0 
+                            || (current[0]==start[0]&&current[1]==start[1]&&ReadMessage.playFace[ReadMessage.playernumber][0]==1)) {
                         tentative_g_score = score[current[0]][current[1]][0] + 1;
                     } else {
                         tentative_g_score = score[current[0]][current[1]][0] + 2;
@@ -146,7 +158,8 @@ public class Astarfor2dgrid {
                     //west
                     int tentative_g_score;
                     int x = current[0] - 1, y = current[1];
-                    if (current[0] - camefrom[x][y][0] < 0 ||(current[0]==start[0]&&current[1]==start[1]&&ReadMessage.playFace[ReadMessage.playernumber][0]==3)) {
+                    if (current[0] - camefrom[current[0]][current[1]][0] < 0 ||
+                            (current[0]==start[0]&&current[1]==start[1]&&ReadMessage.playFace[ReadMessage.playernumber][0]==3)) {
                         tentative_g_score = score[current[0]][current[1]][0] + 1;
                     } else {
                         tentative_g_score = score[current[0]][current[1]][0] + 2;
@@ -169,7 +182,8 @@ public class Astarfor2dgrid {
                     //down
                     int tentative_g_score;
                     int x = current[0], y = current[1] + 1;
-                    if (current[1] - camefrom[x][y][1] > 0 ||(current[0]==start[0]&&current[1]==start[1]&&ReadMessage.playFace[ReadMessage.playernumber][0]==2)) {
+                    if (current[1] - camefrom[current[0]][current[1]][1] > 0 ||
+                            (current[0]==start[0]&&current[1]==start[1]&&ReadMessage.playFace[ReadMessage.playernumber][0]==2)) {
                         tentative_g_score = score[current[0]][current[1]][0] + 1;
                     } else {
                         tentative_g_score = score[current[0]][current[1]][0] + 2;
@@ -191,7 +205,8 @@ public class Astarfor2dgrid {
                 if (current[1] - 1 > -1 && !closed[current[0]][current[1] - 1] && map[current[0]][current[1] - 1] < 7) {
                     int tentative_g_score;
                     int x = current[0], y = current[1] - 1;
-                    if (current[1] - camefrom[x][y][1] < 0||(current[0]==start[0]&&current[1]==start[1]&&ReadMessage.playFace[ReadMessage.playernumber][0]==0)) {
+                    if (current[1] - camefrom[current[0]][current[1]][1] < 0 ||
+                            (current[0]==start[0]&&current[1]==start[1]&&ReadMessage.playFace[ReadMessage.playernumber][0]==0)) {
                         tentative_g_score = score[current[0]][current[1]][0] + 1;
                     } else {
                         tentative_g_score = score[current[0]][current[1]][0] + 2;

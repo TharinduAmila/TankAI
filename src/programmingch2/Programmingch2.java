@@ -3,22 +3,39 @@
  * and open the template in the editor.
  */
 package programmingch2;
-
 import java.io.*;
 import java.net.*;
+import java.util.Timer;
+import java.util.TimerTask;
+import org.newdawn.slick.AppGameContainer;
+import org.newdawn.slick.SlickException;
 /**
  *
  * @author Dell
  */
 public class Programmingch2 {
-
+    static String read;
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, SlickException {
         
         //ReadMessage.init(10);
-        finiteStateMachine fm = new finiteStateMachine(10);
+        new Gui().start();
+        Timer t = new Timer();
+        t.schedule(new TimerTask() {
+            String task ="";
+            @Override
+            public void run() {
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                //System.out.println("aaaaaaaaaaaaaaaaaaaaaa");
+                if(read!=null && Gui.g!=null && !task.equals(read))
+                Gui.g.decode(read);
+                if(read!=null)
+                task = read;
+            }
+        } ,0,50);
+        finiteStateMachine fm = new finiteStateMachine(20);
         ServerSocket server = null;
         Socket output = null;
         Socket input = null;
@@ -41,6 +58,7 @@ public class Programmingch2 {
             input = server.accept();
             in = new BufferedReader(new InputStreamReader(input.getInputStream()));
             min = in.readLine();
+            read = min;
             if(min.equals("GAME_HAS_FINISHED#"))
                 System.exit(0);
             ReadMessage.read(min);

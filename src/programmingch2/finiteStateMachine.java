@@ -62,10 +62,11 @@ public class finiteStateMachine {
             it[2] -= 1000;
         }
         for(int i=0;i<5;i++){
-            if(playFace[i][4]==0){
+            if(playFace[i][0]!=-1 && playFace[i][4]==0){
                 int[] temp = new int[]{playFace[i][1],playFace[i][2],5000};
                 ReadMessage.coinPiles.add(temp);
                 new RemoveListObject(ReadMessage.coinPiles,temp,5000);
+                playFace[i][0] = -1;
             }
         }
     }
@@ -136,6 +137,13 @@ public class finiteStateMachine {
             Ret = "LEFT#";
         }
         System.out.println("X : "+x+" Y :"+y);
+            for(int i=0;i<5;i++){
+                if(i!=ReadMessage.playernumber && playFace[i][0]!=-1){
+                    if(playerInRange()){ //just changed
+                        return "SHOOT#";
+                    }
+                }
+            }
         if(Ret != "")
             return Ret;
         else
